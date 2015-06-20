@@ -78,6 +78,10 @@ angular.module('flapperNews', ['ui.router'])
                 $scope.body = ''
             }
 
+            $scope.incrementUpvotes = function(comment){
+                comment.upvotes += 1 ;
+            }
+
         }
     ])
 
