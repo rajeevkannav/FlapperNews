@@ -6,17 +6,17 @@
 
   <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>-->
   <!--<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>-->
-  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body ng-app="flapperNews">
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+    <div ng-include="'nav/_nav.html'"></div>
     <ui-view></ui-view>
   </div>
 </div>
-
 
 
 </body>

@@ -37,3 +37,4 @@ end
 gem 'angular-rails-templates'
 gem 'responders', '~> 2.0'
 gem 'angular_rails_csrf'
+gem 'devise', '~> 3.4.0'
