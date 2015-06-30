@@ -1,21 +1,48 @@
 angular.module('flapperNews')
 
-//angular.module('flapperNews', [])
-.factory('posts', [function () {
+    .factory('posts', ['$http', function ($http) {
 
-    //service body
+        var o = {
+            posts: []
+        };
 
-    var o = {
-        posts: [
-            {title: 'Post 1', upvotes: 9, comments: []},
-            {title: 'Post 2', upvotes: 4, comments: []},
-            {title: 'Post 3', upvotes: 2, comments: []},
-            {title: 'Post 4', upvotes: 19, comments: []},
-            {title: 'Post 5', upvotes: 11, comments: []},
-            {title: 'Post 6', upvotes: 90, comments: []}
-        ]
-    };
+        o.getAll = function () {
+            return $http.get('/posts.json').success(function (data) {
+                angular.copy(data, o.posts);
+            });
+        };
 
-    return o;
+        o.create = function (post) {
+            return $http.post('/posts.json', post).success(function (data) {
+                o.posts.push(data);
+            });
+        };
 
-}]);
+        o.upvote = function(post) {
+            return $http.put('/posts/' + post.id + '/upvote.json')
+                .success(function(data){
+                    post.upvotes += 1;
+                });
+        };
+
+        o.get = function(id) {
+            return $http.get('/posts/' + id + '.json').then(function(res){
+                return res.data;
+            });
+        };
+
+        o.addComment = function(id, comment) {
+            return $http.post('/posts/' + id + '/comments.json', comment);
+        };
+
+        o.upvoteComment = function(post, comment) {
+            return $http.put('/posts/' + post.id + '/comments/'+ comment.id + '/upvote.json')
+                .success(function(data){
+                    comment.upvotes += 1;
+                });
+        };
+
+        return o;
+
+
+    }]);
